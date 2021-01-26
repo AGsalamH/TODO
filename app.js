@@ -7,6 +7,11 @@ const logger = require('morgan');
 
 // Routes Import
 const todoRoutes = require('./routes/todo');
+const authRoutes = require('./routes/auth');
+
+
+// Utils
+const { isAuth } = require('./controllers/auth');
 
 
 const app = express();
@@ -19,7 +24,8 @@ app.use(express.json());
 
 
 // Routes
-app.use('/todos', todoRoutes);
+app.use('/', authRoutes);
+app.use('/todos',isAuth, todoRoutes);
 
 
 // Error Handling

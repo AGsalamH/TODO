@@ -9,7 +9,7 @@ const todoNotFound = () =>{
 
 const getTodos = async (req, res, next) =>{
     try {
-        const todos = await Todo.find();
+        const todos = await Todo.find({creator: req.user});
         res.json({ok: 1, todos});
     } catch (error) {
         next(error);
@@ -18,7 +18,10 @@ const getTodos = async (req, res, next) =>{
 
 const createTodo = async (req, res, next) =>{
     try {
-        const todo = new Todo({todo: req.body.todo});
+        const todo = new Todo({
+            todo: req.body.todo,
+            creator: req.user
+        });
         const savedTodo = await todo.save();
         res.status(201).json({
             ok: 1,
@@ -31,7 +34,7 @@ const createTodo = async (req, res, next) =>{
 
 const updateTodo = async (req, res, next) =>{
     try {
-        const todo = await Todo.findOne({_id: req.params.id});
+        const todo = await Todo.findOne({_id: req.params.id, creator: req.user});
         if (!todo) {
             todoNotFound();
         }
@@ -49,7 +52,7 @@ const updateTodo = async (req, res, next) =>{
 
 const deleteTodo = async (req, res, next) =>{
     try {
-        const todo = await Todo.findById({_id: req.params.id});
+        const todo = await Todo.findOne({_id: req.params.id, creator: req.user});
         if(!todo){
             todoNotFound();
         }

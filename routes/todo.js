@@ -1,5 +1,5 @@
 const router = require('express'). Router();
-const todoController = require('../controllers/todo');
+const todoController = require('../controllers/todos');
 
 /*
     - GET /todos
