@@ -1,6 +1,6 @@
 const Todo = require('../models/todo');
 
-
+// helper method to keep our code DRY
 const todoNotFound = () =>{
     const error = new Error('No todo found!');
     error.statusCode = 404;
@@ -66,9 +66,23 @@ const deleteTodo = async (req, res, next) =>{
     }
 }
 
+const deleteAllTodos = async (req, res, next) =>{
+    try {
+        deleteInfo = await Todo.deleteMany({creator: req.user});
+        res.json({
+            ok: 1,
+            deleteInfo
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 module.exports = {
     createTodo,
     getTodos,
     updateTodo,
-    deleteTodo
+    deleteTodo,
+    deleteAllTodos
 }
