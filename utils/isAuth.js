@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 // Protect routes and make sure user is logged in
 // Authorization
 module.exports = (req, res, next) =>{
