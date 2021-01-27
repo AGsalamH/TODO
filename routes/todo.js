@@ -6,6 +6,7 @@ const todoController = require('../controllers/todos');
     - POST /todos
     - PUT /todos/:id
     - DELETE /todos/:id
+    - DELETE /todos
 
 */
 router.get('/', todoController.getTodos)

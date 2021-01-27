@@ -7,7 +7,7 @@
 - bcryptjs => Hash passwords
 - jsonwebtoken => Authorization
 - morgan => Logger
-- dotenv => read and load envirment variables from `.env` file into `process.env` object
+- dotenv => read and load enviroment variables from `.env` file into `process.env` object
 - express-validator => data validation
 
 ---
