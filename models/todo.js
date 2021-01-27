@@ -19,5 +19,10 @@ const todoSchema = new Schema({
 
 }, {timestamps: true});
 
+// Update 'updatedAt' everytime i edit a doc 
+todoSchema.pre('save', function (next) {
+    this.updatedAt = Date.now();
+    return next();
+});
 
 module.exports = mongoose.model('Todo', todoSchema);
