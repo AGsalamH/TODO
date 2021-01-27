@@ -8,3 +8,9 @@
 - jsonwebtoken => Authorization
 - morgan => Logger
 - dotenv => read and load envirment variables from `.env` file into `process.env` object
+
+#### To run
+1. rename `.env_sample` to `.env` 
+1. add the required enviroment variable inside this `.env` file
+1. npm install
+1. node app
