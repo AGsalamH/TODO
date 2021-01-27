@@ -8,6 +8,7 @@
 - jsonwebtoken => Authorization
 - morgan => Logger
 - dotenv => read and load envirment variables from `.env` file into `process.env` object
+- express-validator => data validation
 
 #### To run
 1. rename `.env_sample` to `.env` 
