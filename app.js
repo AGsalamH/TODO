@@ -10,9 +10,11 @@ const todoRoutes = require('./routes/todo');
 const authRoutes = require('./routes/auth');
 
 
-// Utils
+// Utils Import
+
 // make sure that user is logged in
-const { isAuth } = require('./controllers/auth');
+// use it before the routes you wanna protect
+const isAuth = require('./utils/isAuth');
 
 
 const app = express();

@@ -41,27 +41,9 @@ const signup = async (req, res, next) =>{
     }
 }
 
-// Protect routes and make sure user is logged in
-// Authorization
-const isAuth = (req, res, next) =>{
-    const token = req.get('auth-token');
-    try {
-        if(!token){
-            const error = new Error('Access-denied');
-            error.statusCode = 401;
-            throw error;
-        }
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = verified;
-        next();
-    } catch (error) {
-        next(error);
-    }  
-}
 
 
 module.exports = {
     login,
-    signup,
-    isAuth
+    signup
 }
