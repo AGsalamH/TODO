@@ -20,6 +20,4 @@ const todoSchema = new Schema({
 }, {timestamps: true});
 
 
-todoSchema.path('todo').validate(todo=>todo.length > 0 , 'TODO can\'t be empty!');
-
 module.exports = mongoose.model('Todo', todoSchema);

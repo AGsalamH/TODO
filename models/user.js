@@ -24,11 +24,7 @@ const userSchema = new Schema({
     },
 });
 
-userSchema
-    .virtual('fullname').get(function(){
-        return `${this.firstname} ${this.lastname}`
-    });
-
+// Hash password
 userSchema.pre('save', async function(next){
     if(!this.isModified('password')){
         return next();
@@ -37,7 +33,7 @@ userSchema.pre('save', async function(next){
     next();
 });
 
-
+// Check if email exists
 userSchema.pre('save', async function(next){
     if(!this.isModified('email')){
         return next();
@@ -53,6 +49,9 @@ userSchema.pre('save', async function(next){
 });
 
 
+// Check if email exists
+// Throws error if it doesn't Exist
+// used in login functionality
 userSchema.statics.emailExists = async function (email) {
     const user = await this.findOne({email: email});
     if (!user) {
@@ -63,6 +62,10 @@ userSchema.statics.emailExists = async function (email) {
     return user;
 }
 
+
+// Check if 2 passwords match
+// Throws Error if they don't match
+// used in Signup functionality
 userSchema.methods.comparePassword = async function (password) {
     const isCorrect = await bcrypt.compare(password, this.password);
     if(!isCorrect){
@@ -72,7 +75,6 @@ userSchema.methods.comparePassword = async function (password) {
     }
     return true;
 }
-
 
 
 module.exports = mongoose.model('User', userSchema);

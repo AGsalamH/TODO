@@ -7,6 +7,7 @@ const todoNotFound = () =>{
     throw error;
 }
 
+// GET /todos
 const getTodos = async (req, res, next) =>{
     try {
         const todos = await Todo.find({creator: req.user});
@@ -16,6 +17,7 @@ const getTodos = async (req, res, next) =>{
     }
 }
 
+// POST /todos
 const createTodo = async (req, res, next) =>{
     try {
         const todo = new Todo({
@@ -32,6 +34,7 @@ const createTodo = async (req, res, next) =>{
     }
 }
 
+// PUT /todos/:id
 const updateTodo = async (req, res, next) =>{
     try {
         const todo = await Todo.findOne({_id: req.params.id, creator: req.user});
@@ -49,7 +52,7 @@ const updateTodo = async (req, res, next) =>{
         next(error);
     }
 }
-
+// DELETE /todos/:id
 const deleteTodo = async (req, res, next) =>{
     try {
         const todo = await Todo.findOne({_id: req.params.id, creator: req.user});
@@ -66,6 +69,7 @@ const deleteTodo = async (req, res, next) =>{
     }
 }
 
+// DELETE /todos
 const deleteAllTodos = async (req, res, next) =>{
     try {
         deleteInfo = await Todo.deleteMany({creator: req.user});

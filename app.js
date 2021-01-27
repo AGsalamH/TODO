@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth');
 
 
 // Utils
+// make sure that user is logged in
 const { isAuth } = require('./controllers/auth');
 
 

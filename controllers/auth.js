@@ -1,8 +1,7 @@
 const User = require('../models/user');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-
+// POST /login
 const login = async (req, res, next) =>{
     try {
         const user = await User.emailExists(req.body.email);
@@ -14,7 +13,7 @@ const login = async (req, res, next) =>{
         res.setHeader('auth-token', token);
         res.json({
             ok: 1,
-            msg: 'You\'re loggedin now'
+            msg: 'You\'re logged in now'
         });
         
     } catch (error) {
@@ -22,6 +21,7 @@ const login = async (req, res, next) =>{
     }
 }
 
+// POST /signup
 const signup = async (req, res, next) =>{
     try {
         const user = new User({
@@ -41,6 +41,8 @@ const signup = async (req, res, next) =>{
     }
 }
 
+// Protect routes and make sure user is logged in
+// Authorization
 const isAuth = (req, res, next) =>{
     const token = req.get('auth-token');
     try {
