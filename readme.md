@@ -22,4 +22,3 @@
 - pre hooks for `find` query to add `{creator: req.user}` to all queries instead of hardcode it myself.
 - some post hooks to overwrite mongoose error messages.
 - format some error messages to hide internal info.
-- add pre hook for `update` query to update the time everytime a todo is updated.
