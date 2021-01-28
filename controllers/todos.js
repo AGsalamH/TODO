@@ -1,4 +1,5 @@
 const Todo = require('../models/todo');
+const validId = require('../utils/isValid');
 
 // helper method to keep our code DRY
 const todoNotFound = () =>{
@@ -37,7 +38,8 @@ const createTodo = async (req, res, next) =>{
 // PUT /todos/:id
 const updateTodo = async (req, res, next) =>{
     try {
-        const todo = await Todo.findOne({_id: req.params.id, creator: req.user});
+        const id = validId(req.params.id);
+        const todo = await Todo.findOne({_id: id, creator: req.user});
         if (!todo) {
             todoNotFound();
         }
@@ -55,7 +57,8 @@ const updateTodo = async (req, res, next) =>{
 // DELETE /todos/:id
 const deleteTodo = async (req, res, next) =>{
     try {
-        const todo = await Todo.findOne({_id: req.params.id, creator: req.user});
+        const id = validId(req.params.id);
+        const todo = await Todo.findOne({_id: id, creator: req.user});
         if(!todo){
             todoNotFound();
         }
