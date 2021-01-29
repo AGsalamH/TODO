@@ -14,10 +14,5 @@
 #### To run
 1. rename `.env_sample` to `.env` 
 1. add the required enviroment variable inside this `.env` file
-1. npm install
-1. node app
-
----
-##### TODO:
-- pre hooks for `find` query to add `{creator: req.user}` to all queries instead of hardcode it myself.
-- some post hooks to overwrite mongoose error messages.
+1. run `npm install`
+1. run `node app`
