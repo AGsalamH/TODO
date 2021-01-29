@@ -16,3 +16,7 @@
 1. add the required enviroment variable inside this `.env` file
 1. run `npm install`
 1. run `node app`
+
+---
+##### TODO
+- Make `catch(err) {...}` blocks catch specific errors only.
