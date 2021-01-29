@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+// const contextService = require('request-context');
 
 const todoSchema = new Schema({
     todo: {
         type: String,
-        required: true,
+        required: [true, 'Can\'t be empty'],
     },
 
     done: {
