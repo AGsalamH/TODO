@@ -1,9 +1,11 @@
 const Todo = require('../models/todo');
 const validId = require('../utils/isValid');
 
+const {MongooseError, isMongooseError, _throw} = require('../utils/errorHandling');
+
 // helper method to keep our code DRY
 const todoNotFound = () =>{
-    const error = new Error('No todo found!');
+    const error = new MongooseError('No todo found!');
     error.statusCode = 404;
     throw error;
 }
@@ -13,8 +15,8 @@ const getTodos = async (req, res, next) =>{
     try {
         const todos = await Todo.find({creator: req.user});
         res.json({ok: 1, todos});
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        isMongooseError(err) ? next(err) : _throw(err);
     }
 }
 
@@ -30,8 +32,8 @@ const createTodo = async (req, res, next) =>{
             ok: 1,
             todo: savedTodo
         });
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        isMongooseError(err) ? next(err) : _throw(err);
     }
 }
 
@@ -50,8 +52,8 @@ const updateTodo = async (req, res, next) =>{
             ok: 1,
             todo: savedTodo
         })
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        isMongooseError(err) ? next(err) : _throw(err);
     }
 }
 // DELETE /todos/:id
@@ -67,8 +69,8 @@ const deleteTodo = async (req, res, next) =>{
             ok: 1,
             deleteInfo
         })
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        isMongooseError(err) ? next(err) : _throw(err);
     }
 }
 
@@ -80,8 +82,8 @@ const deleteAllTodos = async (req, res, next) =>{
             ok: 1,
             deleteInfo
         });
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        isMongooseError(err) ? next(err) : _throw(err);
     }
 }
 
