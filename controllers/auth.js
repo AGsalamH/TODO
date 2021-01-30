@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-
+const {isMongooseError, jwtError, _throw} = require('../utils/errorHandling');
 // POST /login
 const login = async (req, res, next) =>{
     try {
@@ -17,7 +17,7 @@ const login = async (req, res, next) =>{
         });
         
     } catch (error) {
-        next(error);
+        jwtError(error) || isMongooseError(error) ? next(error) : _throw(error);
     }
 }
 
@@ -37,7 +37,7 @@ const signup = async (req, res, next) =>{
         });
 
     } catch (error) {
-        next(error);
+        isMongooseError(error) ? next(error) : _throw(error);
     }
 }
 

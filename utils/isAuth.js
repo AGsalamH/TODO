@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+const {jwtError, _throw} = require('./errorHandling');
 // Protect routes and make sure user is logged in
 // Authorization
 module.exports = (req, res, next) =>{
     const token = req.get('auth-token');
     try {
         if(!token){
-            const error = new Error('Access-denied');
+            const error = new jwt.JsonWebTokenError('Access-denied');
             error.statusCode = 401;
             throw error;
         }
@@ -13,6 +14,6 @@ module.exports = (req, res, next) =>{
         req.user = verified;
         next();
     } catch (error) {
-        next(error);
+        jwtError(error) ? next(error) : _throw(error);
     }  
 }

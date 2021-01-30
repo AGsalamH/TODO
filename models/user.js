@@ -41,7 +41,7 @@ userSchema.pre('save', async function(next){
 
     const email = await this.collection.findOne({email: this.email});
     if(email){
-        const error = new Error('Email already exists!');
+        const error = new mongoose.Error('Email already exists!');
         error.statusCode = 400;
         return next(error);
     }
@@ -55,7 +55,7 @@ userSchema.pre('save', async function(next){
 userSchema.statics.emailExists = async function (email) {
     const user = await this.findOne({email: email});
     if (!user) {
-        const error = new Error('Email does\'nt exist!');
+        const error = new mongoose.Error('Email does\'nt exist!');
         error.statusCode = 404;
         throw error;
     }
@@ -69,7 +69,7 @@ userSchema.statics.emailExists = async function (email) {
 userSchema.methods.comparePassword = async function (password) {
     const isCorrect = await bcrypt.compare(password, this.password);
     if(!isCorrect){
-        const error = new Error('Password isn\'t correct!');
+        const error = new mongoose.Error('Password isn\'t correct!');
         error.statusCode = 400;
         throw error;
     }
