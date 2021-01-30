@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
+const Todo = require('./todo');
 
 const userSchema = new Schema({
     firstname: {
@@ -45,6 +46,15 @@ userSchema.pre('save', async function(next){
         error.statusCode = 400;
         return next(error);
     }
+    next();
+});
+
+
+// This {query:false, document: true} is to make sure that `this` refers to the document
+// If u wanna it to refer to a query u can just swap the true & false
+// if a user gets deleted, it deletes his Todos too.
+userSchema.pre('deleteOne', {query: false, document:true}, async function (next) {
+    await Todo.deleteMany({creator: this._id});
     next();
 });
 
