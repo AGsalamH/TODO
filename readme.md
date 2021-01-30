@@ -13,7 +13,7 @@
 ---
 #### To run
 1. rename `.env_sample` to `.env` 
-1. add the required enviroment variable inside this `.env` file
+1. add the required enviroment variables inside this `.env` file
 1. run `npm install`
 1. run `node app`
 
