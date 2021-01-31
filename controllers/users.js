@@ -10,7 +10,7 @@ const userNotFound = () =>{
 
 const getUserInfo = async (req, res, next) => {
     try {
-        const user = await User.findOne({_id: req.user});
+        const user = await User.findOne({_id: req.user}, {password: 0});
         res.json({
             ok: 1,
             user
@@ -23,7 +23,7 @@ const getUserInfo = async (req, res, next) => {
 // To fire the pre hook that deletes the Todos attached to that user
 const deleteUser = async (req, res, next) => {
     try {
-        const user = await User.findOne({_id: req.user._id});
+        const user = await User.findOne({_id: req.user._id}, {password: 0});
         if(!user){
             userNotFound();
         }
