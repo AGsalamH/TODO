@@ -12,13 +12,13 @@ const userRoutes = require('./routes/user');
 
 
 // Utils Import
-const {urlNotFound} = require('./utils/errorHandling');
+const {urlNotFound, globalErrorHandling} = require('./utils/errorHandling');
 
 // This middleware makes sure that user is logged in
 // use it before the routes you wanna protect
 const isAuth = require('./utils/isAuth');
 
-
+// Instatiate Express app
 const app = express();
 
 
@@ -37,12 +37,8 @@ app.use('/users', isAuth, userRoutes);
 // Must be beneath all Routes
 app.use(urlNotFound);
 
-// Error Handling
-app.use((error, req, res, next)=>{
-    res
-    .status(error.statusCode || 500)
-    .json({ok: 0, error: error.message});
-});
+// Global Error Handling Middleware
+app.use(globalErrorHandling);
 
 (async () =>{
     await mongoose.connect(process.env.MONGO_URI, {

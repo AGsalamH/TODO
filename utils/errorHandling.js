@@ -35,10 +35,22 @@ const urlNotFound = (req, res, next) =>{
 }
 
 
+// Express Global Error Handling middleware
+// All Errors are passed directly to it
+const globalErrorHandling = (error, req, res, next) =>{
+    res
+    .status(error.statusCode || 500)
+    .json({ok: 0, error: error.message});
+}
+
+
 module.exports = {
     _throw,
     isMongooseError,
     jwtError,
+
     urlNotFound,
+    globalErrorHandling,
+
     MongooseError: mongoose.Error,
 }
