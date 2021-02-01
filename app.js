@@ -12,8 +12,9 @@ const userRoutes = require('./routes/user');
 
 
 // Utils Import
+const {urlNotFound} = require('./utils/errorHandling');
 
-// make sure that user is logged in
+// This middleware makes sure that user is logged in
 // use it before the routes you wanna protect
 const isAuth = require('./utils/isAuth');
 
@@ -31,6 +32,10 @@ app.use(express.json());
 app.use('/', authRoutes);
 app.use('/todos',isAuth, todoRoutes);
 app.use('/users', isAuth, userRoutes);
+
+// 404 Handling
+// Must be beneath all Routes
+app.use(urlNotFound);
 
 // Error Handling
 app.use((error, req, res, next)=>{

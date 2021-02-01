@@ -27,9 +27,18 @@ const _throw = err => {
     throw err;
 }
 
+// 404 Handling middleware
+const urlNotFound = (req, res, next) =>{
+    const error = new Error(`The requested URL: ${req.url} was NOT found on this server!`);
+    error.statusCode = 404;
+    next(error);
+}
+
+
 module.exports = {
     _throw,
     isMongooseError,
     jwtError,
-    MongooseError: mongoose.Error
+    urlNotFound,
+    MongooseError: mongoose.Error,
 }
