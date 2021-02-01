@@ -8,9 +8,13 @@ const userNotFound = () =>{
     throw error;
 }
 
+// GET /users
 const getUserInfo = async (req, res, next) => {
     try {
         const user = await User.findOne({_id: req.user}, {password: 0});
+        if(!user){
+            userNotFound();
+        }
         res.json({
             ok: 1,
             user
@@ -19,8 +23,11 @@ const getUserInfo = async (req, res, next) => {
         isMongooseError(err) ? next(err) : _throw(err);
     }
 }
+
+
 // When Deleting a user use `doc.deleteOne()` NOT `Model.deleteOne()` ..
 // To fire the pre hook that deletes the Todos attached to that user
+// DELETE /user
 const deleteUser = async (req, res, next) => {
     try {
         const user = await User.findOne({_id: req.user._id}, {password: 0});
@@ -37,6 +44,7 @@ const deleteUser = async (req, res, next) => {
         isMongooseError(err) ? next(err) : _throw(err);
     }
 }
+
 
 module.exports = {
     getUserInfo,
