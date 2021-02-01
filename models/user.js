@@ -44,14 +44,18 @@ userSchema.pre('save', async function(next){
     if(email){
         const error = new mongoose.Error('Email already exists!');
         error.statusCode = 400;
-        return next(error);
+
+        //Both work fine
+        // return next(error);
+        //or
+        throw error;
     }
     next();
 });
 
 
 // This {query:false, document: true} is to make sure that `this` refers to the document
-// If u wanna it to refer to a query u can just swap the true & false
+// If u wanna it to refer to the query u can just change the true & false values
 // if a user gets deleted, it deletes his Todos too.
 userSchema.pre('deleteOne', {query: false, document:true}, async function (next) {
     await Todo.deleteMany({creator: this._id});
