@@ -16,3 +16,8 @@
 1. add the required enviroment variables inside this `.env` file
 1. run `npm install`
 1. run `node app`
+
+---
+#### Todo
+- Add advanced authentication
+- Handle forget password
