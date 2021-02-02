@@ -5,7 +5,7 @@ const {isValid} = mongoose.Types.ObjectId;
 module.exports = (id, message = 'Todo not found!') => {
     if(!isValid(id)){
         const error = new mongoose.Error(message);
-        error.statusCode = 400;
+        error.statusCode = 404;
         throw error;
     }
     return id;
