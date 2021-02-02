@@ -2,6 +2,7 @@ const Todo = require('../models/todo');
 const validId = require('../utils/isValid');
 
 const {MongooseError, isMongooseError, _throw} = require('../utils/errorHandling');
+const isValid = require('../utils/isValid');
 
 // helper method to keep our code DRY
 const todoNotFound = () =>{
@@ -17,6 +18,23 @@ const getTodos = async (req, res, next) =>{
         res.json({ok: 1, todos});
     } catch (err) {
         isMongooseError(err) ? next(err) : _throw(err);
+    }
+}
+
+// GET /todos/:id
+const getTodo = async (req, res, next) =>{
+    try {
+        const id = isValid(req.params.id);
+        const todo = await Todo.findById(id);
+        if(!todo){
+            todoNotFound();
+        }
+        res.json({
+            ok: 1,
+            todo
+        })
+    } catch (err) {
+        isMongooseError(err) ? next(err) : _throw(err)
     }
 }
 
@@ -91,6 +109,7 @@ const deleteAllTodos = async (req, res, next) =>{
 module.exports = {
     createTodo,
     getTodos,
+    getTodo,
     updateTodo,
     deleteTodo,
     deleteAllTodos

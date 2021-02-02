@@ -5,18 +5,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 
-// Routes Import
+// Import Routes
 const todoRoutes = require('./routes/todo');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 
-
-// Utils Import
+// Import Middlewares
 const {urlNotFound, globalErrorHandling} = require('./utils/errorHandling');
-
-// This middleware makes sure that user is logged in
-// use it before the routes you wanna protect
 const isAuth = require('./utils/isAuth');
+
 
 // Instatiate Express app
 const app = express();
