@@ -87,7 +87,7 @@ userSchema.methods.comparePassword = async function (password) {
         error.statusCode = 400;
         throw error;
     }
-    return true;
+    return isCorrect;
 }
 
 
