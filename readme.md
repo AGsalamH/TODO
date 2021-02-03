@@ -19,5 +19,5 @@
 
 ---
 #### Todo
-- Add advanced authentication
-- Handle forget password
+- Email Verification
+- reset passwords
