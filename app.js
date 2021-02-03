@@ -11,8 +11,8 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 
 // Import Middlewares
-const {urlNotFound, globalErrorHandling} = require('./utils/errorHandling');
-const isAuth = require('./utils/isAuth');
+const {urlNotFound, globalErrorHandling} = require('./middlewares/errorHandling');
+const isAuth = require('./middlewares/isAuth');
 
 
 // Instatiate Express app

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const {jwtError, _throw} = require('./errorHandling');
+const {jwtError, _throw} = require('../utils/errorHandling');
+
 // Protect routes and make sure user is logged in
 // Authorization
 module.exports = (req, res, next) =>{

@@ -1,6 +1,8 @@
 const router = require('express'). Router();
 const {login, signup} = require('../controllers/auth');
-const {loginValidationRules, signupValidationRules, validate} = require('../utils/validation');
+const {loginValidationRules, signupValidationRules} = require('../utils/validation');
+const validate = require('../middlewares/validate');
+
 /*
     - POST /login
     - POST /signup
