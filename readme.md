@@ -21,3 +21,7 @@
 #### Todo
 - Email Verification
 - reset passwords
+
+#### Bug
+- Token can be valid but the user may doesn't Exist. Therefore user appears to be loggedin and can do anything but he doesn't even Exist!!!
+- TO FIX: i have to check whether this user exists or NOT in `isAuth` middleware
