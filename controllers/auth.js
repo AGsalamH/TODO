@@ -7,8 +7,7 @@ const login = async (req, res, next) =>{
         const user = await User.emailExists(req.body.email);
         await user.comparePassword(req.body.password);
         const token = jwt.sign({
-            _id: user._id,
-            email: user.email
+            _id: user._id
         }, process.env.TOKEN_SECRET);
         res.setHeader('auth-token', token);
         res.json({
