@@ -3,11 +3,7 @@ const mongoose = require("mongoose");
 // Check if it's a mongoose error
 // To catch only mongoose errors
 const isMongooseError = err => {
-    if(err instanceof mongoose.Error){
-        return true;
-    }else{
-        return false;
-    }
+    return err instanceof mongoose.Error;
 }
 
 // Check if it's a Jsonwebtoken error
