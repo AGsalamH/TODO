@@ -8,12 +8,12 @@ const isMongooseError = err => {
 
 // Check if it's a Jsonwebtoken error
 const jwtError = err => {
-    const condition = (
+    const filter = (
         err.name === 'JsonWebTokenError' ||
         err.name === 'NotBeforeError'    ||
         err.name === 'TokenExpiredError'
     );
-    return condition ? true : false;
+    return filter;
 }
 
 // To be able to throw errors in ternary operator AKA Ta7neka :D
