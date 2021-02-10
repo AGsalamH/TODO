@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon",
-    "start": "node app"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "TODO"
@@ -20,5 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.7"
   }
 }

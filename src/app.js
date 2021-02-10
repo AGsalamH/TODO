@@ -1,8 +1,5 @@
-require('dotenv').config();
-
 // Dependencies
 const express = require('express');
-const mongoose = require('mongoose');
 const logger = require('morgan');
 
 // Import Routes
@@ -37,13 +34,4 @@ app.use(urlNotFound);
 // Global Error Handling Middleware
 app.use(globalErrorHandling);
 
-(async () =>{
-    await mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true, 
-        useUnifiedTopology: true
-    });
-    console.log('MONGODB Connected ...');
-
-    app.listen(process.env.PORT, ()=> console.log(`Listening on PORT: ${process.env.PORT}`));
-
-})()
+module.exports = app;
