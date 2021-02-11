@@ -16,6 +16,18 @@ const jwtError = err => {
     return filter;
 }
 
+const throwTodoError = (next, status = 404, message = 'Todo not found!') =>{
+    const error = new Error(message);
+    error.statusCode = status;
+    return next(error);
+}
+
+const throwUserError = (next, status = 404, message = 'User not found!') =>{
+    const error = new Error(message);
+    error.statusCode = status;
+    return next(error);
+}
+
 // To be able to throw errors in ternary operator AKA Ta7neka :D
 const _throw = err => {
     throw err;
@@ -23,8 +35,12 @@ const _throw = err => {
 
 module.exports = {
     _throw,
+
     isMongooseError,
     jwtError,
+
+    throwTodoError,
+    throwUserError,
 
     MongooseError: mongoose.Error,
 }
