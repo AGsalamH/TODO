@@ -1,15 +1,11 @@
-const Todo = require('../models/todo');
-const validId = require('../utils/isValid');
+const { isMongooseError, throwTodoError, _throw } = require('../utils/errorHandling');
 
-const {MongooseError, isMongooseError, _throw} = require('../utils/errorHandling');
+// Todo Model
+const Todo = require('../models/todo');
+
+// is valid ObjectId ?
 const isValid = require('../utils/isValid');
 
-// helper method to keep our code DRY
-const todoNotFound = () =>{
-    const error = new MongooseError('No todo found!');
-    error.statusCode = 404;
-    throw error;
-}
 
 // GET /todos
 const getTodos = async (req, res, next) =>{
@@ -58,10 +54,10 @@ const createTodo = async (req, res, next) =>{
 // PUT /todos/:id
 const updateTodo = async (req, res, next) =>{
     try {
-        const id = validId(req.params.id);
+        const id = isValid(req.params.id);
         const todo = await Todo.findOne({_id: id, creator: req.user});
         if (!todo) {
-            todoNotFound();
+            return throwTodoError(next);
         }
         todo.todo = req.body.todo || todo.todo;
         todo.done = req.body.done || false;
@@ -77,10 +73,10 @@ const updateTodo = async (req, res, next) =>{
 // DELETE /todos/:id
 const deleteTodo = async (req, res, next) =>{
     try {
-        const id = validId(req.params.id);
+        const id = isValid(req.params.id);
         const todo = await Todo.findOne({_id: id, creator: req.user});
         if(!todo){
-            todoNotFound();
+            return throwTodoError(next);
         }
         deleteInfo = await Todo.deleteOne({_id: req.params.id});
         res.json({

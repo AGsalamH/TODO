@@ -1,19 +1,14 @@
-const User = require('../models/user');
-const {MongooseError,isMongooseError, _throw} = require('../utils/errorHandling');
+const {isMongooseError,throwUserError, _throw} = require('../utils/errorHandling');
 
-// Helper method
-const userNotFound = () =>{
-    const error = new MongooseError('No user found');
-    error.statusCode = 404;
-    throw error;
-}
+// User Model
+const User = require('../models/user');
 
 // GET /users
 const getUserInfo = async (req, res, next) => {
     try {
         const user = await User.findOne({_id: req.user}, {password: 0});
         if(!user){
-            userNotFound();
+            return throwUserError(next);
         }
         res.json({
             ok: 1,
@@ -32,7 +27,7 @@ const deleteUser = async (req, res, next) => {
     try {
         const user = await User.findOne({_id: req.user._id}, {password: 0});
         if(!user){
-            userNotFound();
+            return throwUserError(next);
         }
         const deletedUser = await user.deleteOne();
         res.json({
@@ -50,7 +45,7 @@ const editUser = async (req, res, next) =>{
     try {
         const user = await User.findById(req.user._id);
         if(!user){
-            userNotFound();
+            return throwUserError(next);
         }
         user.firstname = req.body.firstname || user.firstname;
         user.lastname = req.body.lastname || user.lastname;
