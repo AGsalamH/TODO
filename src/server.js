@@ -4,7 +4,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 
 // Express app
-const app = require('./src/app');
+const app = require('./app');
 
 // Http Server
 const server = http.createServer(app);
