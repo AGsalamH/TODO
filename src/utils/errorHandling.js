@@ -28,6 +28,13 @@ const throwUserError = (next, status = 404, message = 'User not found!') =>{
     return next(error);
 }
 
+const throwAccessDenied = (next, status=401, message="Access-Denied") =>{
+    const error = new Error(message);
+    error.statusCode = status;
+    return next(error);
+}
+
+
 // To be able to throw errors in ternary operator AKA Ta7neka :D
 const _throw = err => {
     throw err;
@@ -41,6 +48,6 @@ module.exports = {
 
     throwTodoError,
     throwUserError,
-
+    throwAccessDenied,
     MongooseError: mongoose.Error,
 }

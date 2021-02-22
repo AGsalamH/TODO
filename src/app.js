@@ -9,7 +9,7 @@ const userRoutes = require('./routes/user');
 
 // Import Middlewares
 const {urlNotFound, globalErrorHandling} = require('./middlewares/errorHandling');
-const isAuth = require('./middlewares/isAuth');
+const authorization = require('./middlewares/authorization');
 
 
 // Instatiate Express app
@@ -24,8 +24,8 @@ app.use(express.json());
 
 // Routes
 app.use('/', authRoutes);
-app.use('/todos',isAuth, todoRoutes);
-app.use('/users', isAuth, userRoutes);
+app.use('/todos',authorization("user"), todoRoutes);
+app.use('/users',authorization("user"), userRoutes);
 
 // 404 Handling
 // Must be beneath all Routes
